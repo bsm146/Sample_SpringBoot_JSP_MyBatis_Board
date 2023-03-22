@@ -1,0 +1,29 @@
+server:
+  port: 8090
+
+spring:
+
+  # JSP
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  # Reload
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  thymeleaf:
+    cache: false
+
+  # DB
+  datasource:
+    url: jdbc:mysql://localhost:3306/board
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  type-aliases-package: com.example.boardJsp.mapper.BoardDao
