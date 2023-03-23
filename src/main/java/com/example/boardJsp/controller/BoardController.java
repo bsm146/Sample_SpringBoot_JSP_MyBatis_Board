@@ -66,7 +66,7 @@ public class BoardController {
         } else {
 
             session.setAttribute("userID", login.get("Y").get(0).getId());
-            boardSetting(model, 1);
+            boardSetting(model, 0);
 
             return "board";
         }
@@ -79,7 +79,7 @@ public class BoardController {
 
         HttpSession session = request.getSession();
         session.removeAttribute("userID");
-        boardSetting(model, 1);
+        boardSetting(model, 0);
 
         return "board";
     }
@@ -100,7 +100,7 @@ public class BoardController {
         HttpSession session = request.getSession();
         String userID = (String) session.getAttribute("userID");
         boardService.boardWrite(userID, board);
-        boardSetting(model, 1);
+        boardSetting(model, 0);
 
         return "redirect:board";
     }
