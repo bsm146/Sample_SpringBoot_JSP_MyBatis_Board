@@ -2,6 +2,7 @@ package com.example.boardJsp.mapper;
 
 import com.example.boardJsp.dto.Board;
 import com.example.boardJsp.dto.Member;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -31,7 +32,19 @@ public interface BoardMapper {
             "SELECT *\n" +
             "FROM   member\n" +
             "WHERE  id = #{id}\n" +
-            "   AND pw = #{pw};  "
+            "   AND pw = #{pw}  "
     )
-    List<Member> loginCheck(int id, String pw);
+    List<Member> loginCheck(String id, String pw);
+
+    // 게시글 작성
+    @Insert(
+            "INSERT INTO board\n" +
+            "            (writer,\n" +
+            "             title,\n" +
+            "             content)\n" +
+            "VALUES     (#{userID},\n" +
+            "            #{title},\n" +
+            "            #{content})   "
+    )
+    void boardWrite(String userID, String title, String content);
 }

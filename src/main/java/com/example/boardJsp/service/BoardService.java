@@ -6,6 +6,7 @@ import com.example.boardJsp.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +30,7 @@ public class BoardService {
     }
 
     // 로그인
-    public Map<String, List<Member>> loginCheck(int id, String pw) {
+    public Map<String, List<Member>> loginCheck(String id, String pw) {
 
         List<Member> loginUser = boardMapper.loginCheck(id, pw);
         Map<String, List<Member>> login = null;
@@ -41,5 +42,13 @@ public class BoardService {
         }
 
         return login;
+    }
+
+    // 게시글 작성
+    public void boardWrite(String userID, Board board) {
+
+        String title = board.getTitle();
+        String content = board.getContent();
+        boardMapper.boardWrite(userID, title, content);
     }
 }

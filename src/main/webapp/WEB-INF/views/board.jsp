@@ -36,7 +36,7 @@
                 <tr style="text-align: center; height: 50px;">
                     <td width="10%" scope="row">${boardList.id}</td>
                     <td width="50%" scope="row">${boardList.title}</td>
-                    <td width="15%" scope="row">${boardList.content}</td>
+                    <td width="15%" scope="row">${boardList.writer}</td>
                     <td width="10%" scope="row"></td>
                     <td width="15%" scope="row"></td>
                 </tr>
