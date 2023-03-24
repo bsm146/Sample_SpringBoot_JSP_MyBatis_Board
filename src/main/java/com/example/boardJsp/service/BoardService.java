@@ -6,7 +6,9 @@ import com.example.boardJsp.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +19,23 @@ public class BoardService {
     @Autowired
     BoardMapper boardMapper;
 
-    // 게시글 불러오기
+    // 글 불러오기
     public List<Board> boardList(int pageNum) {
 
-        return boardMapper.boardList(pageNum);
+        List<Board> boardList = boardMapper.boardList(pageNum);
+        Timestamp timestamp;
+        Date date;
+        SimpleDateFormat sdf;
+
+        for (Board i : boardList) {
+
+            timestamp = Timestamp.valueOf(i.getWritingDate());
+            date = new Date(timestamp.getTime());
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
+            i.setWritingDate(sdf.format(date) + " b");
+        }
+
+        return boardList;
     }
 
     // 게시글 하단 버튼 관련
@@ -29,10 +44,10 @@ public class BoardService {
         return boardMapper.boardCount();
     }
 
-    // 로그인
-    public Map<String, List<Member>> loginCheck(String id, String pw) {
+    // 로그인 id, pw 체크
+    public Map<String, List<Member>> loginCheck(Member member) {
 
-        List<Member> loginUser = boardMapper.loginCheck(id, pw);
+        List<Member> loginUser = boardMapper.loginCheck(member);
         Map<String, List<Member>> login = null;
 
         if (!loginUser.isEmpty()) {
@@ -45,10 +60,8 @@ public class BoardService {
     }
 
     // 게시글 작성
-    public void boardWrite(String userID, Board board) {
+    public void boardWrite(Board board) {
 
-        String title = board.getTitle();
-        String content = board.getContent();
-        boardMapper.boardWrite(userID, title, content);
+        boardMapper.boardWrite(board);
     }
 }

@@ -9,4 +9,6 @@ public class Board {
     private String writer;
     private String title;
     private String content;
+    private int views;
+    private String writingDate;
 }

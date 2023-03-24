@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface BoardMapper {
 
-    // 게시글 불러오기
+    // 글 불러오기
     @Select(
             "SELECT *\n" +
             "FROM   board\n" +
@@ -27,14 +27,14 @@ public interface BoardMapper {
     )
     int boardCount();
 
-    // 로그인
+    // 로그인 id, pw 체크
     @Select(
             "SELECT *\n" +
             "FROM   member\n" +
             "WHERE  id = #{id}\n" +
-            "   AND pw = #{pw}  "
+            "   AND pw = #{pw} "
     )
-    List<Member> loginCheck(String id, String pw);
+    List<Member> loginCheck(Member member);
 
     // 게시글 작성
     @Insert(
@@ -42,9 +42,9 @@ public interface BoardMapper {
             "            (writer,\n" +
             "             title,\n" +
             "             content)\n" +
-            "VALUES     (#{userID},\n" +
+            "VALUES     (#{writer},\n" +
             "            #{title},\n" +
-            "            #{content})   "
+            "            #{content}) "
     )
-    void boardWrite(String userID, String title, String content);
+    void boardWrite(Board board);
 }

@@ -35,10 +35,10 @@
             <c:forEach var="boardList" items="${boardList}" end="9">
                 <tr style="text-align: center; height: 50px;">
                     <td width="10%" scope="row">${boardList.id}</td>
-                    <td width="50%" scope="row">${boardList.title}</td>
+                    <td width="50%" scope="row"><a href="#">${boardList.title}</a></td>
                     <td width="15%" scope="row">${boardList.writer}</td>
-                    <td width="10%" scope="row"></td>
-                    <td width="15%" scope="row"></td>
+                    <td width="10%" scope="row">${boardList.views}</td>
+                    <td width="15%" scope="row">${boardList.writingDate}</td>
                 </tr>
             </c:forEach>
         </table>
@@ -46,7 +46,7 @@
         <div style="text-align: center">
             <%-- 1 ~ 10 페이지에서 처음(◀◀), 이전(◀) 버튼 비활성화 --%>
             <button ${pageNum < 11 ? "disabled='disabled'" : ""} onclick="location.href='/board?pageNum=1'" type="button" class="btn btn-secondary">◀◀</button>
-            <button ${pageNum < 11 ? "disabled='disabled'" : ""} onclick="location.href='/board?pageNum=${endNum - 19}'" type="button" class="btn btn-secondary">◀</button>
+            <button ${pageNum < 11 ? "disabled='disabled'" : ""} onclick="location.href='/board?pageNum=${endNum - 19}'" type="button" class="btn btn-secondary" style="margin-right: 20px">◀</button>
             <c:forEach var="boardList" begin="${startNum}" end="${endNum}">
                 <%-- 시작 index <= 버튼 개수면 숫자 버튼 생성 --%>
                 <c:if test="${boardList <= boardCount}">
@@ -55,7 +55,7 @@
                 </c:if>
             </c:forEach>
             <%-- for문 종료 index > 버튼 개수면 다음(▶), 마지막(▶▶) 버튼 비활성화 --%>
-            <button ${endNum > boardCount ? "disabled='disabled'" : ""} onclick="location.href='/board?pageNum=${endNum + 1}'"type="button" class="btn btn-secondary">▶</button>
+            <button ${endNum > boardCount ? "disabled='disabled'" : ""} onclick="location.href='/board?pageNum=${endNum + 1}'"type="button" class="btn btn-secondary" style="margin-left: 20px">▶</button>
             <button ${endNum > boardCount ? "disabled='disabled'" : ""} onclick="location.href='/board?pageNum=${pageNumEnd - (pageNumEnd - 1) % 10}'"type="button" class="btn btn-secondary">▶▶</button>
             <c:if test="${!empty userID}">
                 <button style="float: right" onclick="location.href='/boardWrite' "type="button" class="btn btn-secondary">글쓰기</button>
@@ -63,10 +63,13 @@
         </div>
     </div>
 
+
+
+    <%-------------- 자바스크립트 --------------%>
+
     <script>
 
     </script>
-
 
 </body>
 </html>

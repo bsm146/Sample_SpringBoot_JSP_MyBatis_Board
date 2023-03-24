@@ -23,6 +23,7 @@
                     </div>
                     <div class="card-body">
                         <form action="/boardWriteProcess" method="post">
+                            <input type="hidden" class="form-control" name="writer" id="writer" value="${userID}">
                             <div class="form-group">
                                 <label for="title">Title</label>
                                 <input type="text" class="form-control" name="title" id="title" placeholder="Enter title" autofocus>
