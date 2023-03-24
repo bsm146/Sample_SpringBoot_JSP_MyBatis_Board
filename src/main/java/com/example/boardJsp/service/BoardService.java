@@ -5,6 +5,7 @@ import com.example.boardJsp.dto.Member;
 import com.example.boardJsp.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -32,7 +33,7 @@ public class BoardService {
             timestamp = Timestamp.valueOf(i.getWritingDate());
             date = new Date(timestamp.getTime());
             sdf = new SimpleDateFormat("yyyy-MM-dd");
-            i.setWritingDate(sdf.format(date) + " b");
+            i.setWritingDate(sdf.format(date));
         }
 
         return boardList;
@@ -63,5 +64,13 @@ public class BoardService {
     public void boardWrite(Board board) {
 
         boardMapper.boardWrite(board);
+    }
+
+    // 글 상세 보기
+    public Board viewDetail(int id) {
+
+        boardMapper.viewsPlus(id);
+
+        return boardMapper.viewDetail(id);
     }
 }

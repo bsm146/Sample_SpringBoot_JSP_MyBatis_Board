@@ -101,4 +101,16 @@ public class BoardController {
 
         return "redirect:board";
     }
+
+    // 글 상세 보기
+    @GetMapping("/viewDetail")
+    public String viewDetail(Model model,
+                             @RequestParam int id) {
+
+        Board board = boardService.viewDetail(id);
+        model.addAttribute("board", board);
+
+        return "redirect:viewDetail";
+//        return "viewDetail";
+    }
 }

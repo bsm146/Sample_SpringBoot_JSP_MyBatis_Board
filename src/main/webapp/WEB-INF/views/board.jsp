@@ -35,7 +35,7 @@
             <c:forEach var="boardList" items="${boardList}" end="9">
                 <tr style="text-align: center; height: 50px;">
                     <td width="10%" scope="row">${boardList.id}</td>
-                    <td width="50%" scope="row"><a href="#">${boardList.title}</a></td>
+                    <td width="50%" scope="row"><a href="/viewDetail?id=${boardList.id}">${boardList.title}</a></td>
                     <td width="15%" scope="row">${boardList.writer}</td>
                     <td width="10%" scope="row">${boardList.views}</td>
                     <td width="15%" scope="row">${boardList.writingDate}</td>

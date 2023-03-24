@@ -5,6 +5,7 @@ import com.example.boardJsp.dto.Member;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -20,12 +21,14 @@ public interface BoardMapper {
     )
     List<Board> boardList(int pageNum);
 
+
     // 게시글 하단 버튼 관련
     @Select(
             "SELECT Ceil(Count(*) / 10)\n" +
             "FROM   board "
     )
     int boardCount();
+
 
     // 로그인 id, pw 체크
     @Select(
@@ -35,6 +38,7 @@ public interface BoardMapper {
             "   AND pw = #{pw} "
     )
     List<Member> loginCheck(Member member);
+
 
     // 게시글 작성
     @Insert(
@@ -47,4 +51,21 @@ public interface BoardMapper {
             "            #{content}) "
     )
     void boardWrite(Board board);
+
+
+    // 글 상세 보기
+    @Select(
+            "SELECT *\n" +
+            "FROM   board\n" +
+            "WHERE  id = ${id} "
+    )
+    Board viewDetail(int id);
+
+    // 글 조회수 + 1
+    @Update(
+            "UPDATE board\n" +
+            "SET    views = views + 1\n" +
+            "WHERE  id = ${id} "
+    )
+    void viewsPlus(int id);
 }
