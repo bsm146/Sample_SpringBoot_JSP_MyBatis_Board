@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,6 +29,7 @@ public class BoardController {
     public String board(Model model,
                         @RequestParam(defaultValue = "1") int pageNum) {
 
+//        System.out.println("board()");
         pageNum = (pageNum - 1) * 10;
         boardSetting(model, pageNum);
 
@@ -37,6 +40,7 @@ public class BoardController {
     public void boardSetting(Model model,
                              int pageNum) {
 
+//        System.out.println("boardSetting()");
         model.addAttribute("pageNum", pageNum);
         model.addAttribute("boardList", boardService.boardList(pageNum));
         model.addAttribute("boardCount", boardService.boardCount());
@@ -96,21 +100,33 @@ public class BoardController {
                              HttpServletRequest request,
                              @ModelAttribute Board board) {
 
+//        System.out.println("boardWrite()");
         boardService.boardWrite(board);
-        boardSetting(model, 0);
 
         return "redirect:board";
     }
 
     // 글 상세 보기
+    @GetMapping("/viewDetailBefore")
+    public String viewDetailBefore(@RequestParam int id,
+                                   RedirectAttributes redirectAttributes) {
+
+        System.out.println("viewDetailBefore()");
+
+        boardService.viewDetail(id);
+        redirectAttributes.addAttribute("id", id);
+
+        return "redirect:viewDetail";
+    }
+
     @GetMapping("/viewDetail")
     public String viewDetail(Model model,
                              @RequestParam int id) {
 
-        Board board = boardService.viewDetail(id);
+        System.out.println("viewDetail() ");
+        Board board = boardService.viewDetail2(id);
         model.addAttribute("board", board);
 
-        return "redirect:viewDetail";
-//        return "viewDetail";
+        return "viewDetail";
     }
 }

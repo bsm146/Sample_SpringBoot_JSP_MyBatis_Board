@@ -22,8 +22,3 @@ spring:
     username: root
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-  # MyBatis
-#mybatis:
-  # type-aliases-package: com.example.생성한 Package.생성한 Class
-#  type-aliases-package: com.example.boardJsp.mapper.BoardDao

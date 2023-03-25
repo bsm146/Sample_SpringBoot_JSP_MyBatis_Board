@@ -66,10 +66,14 @@ public class BoardService {
         boardMapper.boardWrite(board);
     }
 
-    // 글 상세 보기
-    public Board viewDetail(int id) {
+    // 글 조회수 + 1
+    public void viewDetail(int id) {
 
         boardMapper.viewsPlus(id);
+    }
+
+    // 글 상세 보기
+    public Board viewDetail2(int id) {
 
         return boardMapper.viewDetail(id);
     }
