@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -47,9 +46,11 @@ public class BoardController {
 
     // 로그인 페이지 이동
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
 
-        return "login";
+        model.addAttribute("view", "login.jsp");
+
+        return "view";
     }
 
     // 로그인 id, pw 체크
@@ -63,14 +64,15 @@ public class BoardController {
 
         if (login == null) {
 
-            return "login";
+            model.addAttribute("view", "login.jsp");
+            return "view";
 
         } else {
 
             session.setAttribute("userID", login.get("Y").get(0).getId());
             boardSetting(model, 0);
-
-            return "board";
+            model.addAttribute("view", "board.jsp");
+            return "view";
         }
     }
 
@@ -82,15 +84,17 @@ public class BoardController {
         HttpSession session = request.getSession();
         session.removeAttribute("userID");
         boardSetting(model, 0);
+        model.addAttribute("view", "board.jsp");
 
-        return "board";
+        return "view";
     }
 
     // 글쓰기 페이지 이동
     @GetMapping("/boardWrite")
-    public String boardWrite() {
+    public String boardWrite(Model model) {
 
-        return "boardWrite";
+        model.addAttribute("view", "boardWrite.jsp");
+        return "view";
     }
 
     // 글쓰기 처리
@@ -121,8 +125,9 @@ public class BoardController {
 //        System.out.println("viewDetail()");
         Board board = boardService.viewDetail2(id);
         model.addAttribute("board", board);
+        model.addAttribute("view", "viewDetail.jsp");
 
-        return "viewDetail";
+        return "view";
     }
 
     // 글 삭제
@@ -142,8 +147,9 @@ public class BoardController {
 //        System.out.println("boardUpdate()");
         Board board = boardService.viewDetail2(id);
         model.addAttribute("board", board);
+        model.addAttribute("view", "boardUpdate.jsp");
 
-        return "boardUpdate";
+        return "view";
     }
 
     // 글 수정 처리

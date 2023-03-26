@@ -6,6 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <title>글 수정</title>
 </head>
 <body>
 

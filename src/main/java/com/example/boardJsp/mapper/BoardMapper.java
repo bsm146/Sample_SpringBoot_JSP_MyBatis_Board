@@ -81,4 +81,13 @@ public interface BoardMapper {
             "WHERE  id = #{id}"
     )
     void boardUpdateProcess(Board board);
+
+
+    // idCheck 테스트
+    @Select(
+            "SELECT *\n" +
+            "FROM   member\n" +
+            "WHERE  id = #{id}"
+    )
+    List<Member> idCheck(String id);
 }

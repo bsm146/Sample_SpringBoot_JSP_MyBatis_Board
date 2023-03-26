@@ -5,6 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <title>글 상세보기</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 </head>
 <body>

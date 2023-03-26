@@ -89,4 +89,19 @@ public class BoardService {
 
         boardMapper.boardUpdateProcess(board);
     }
+
+
+    // idCheck 테스트
+    public String idCheck(String id) {
+
+        List<Member> memberList = boardMapper.idCheck(id);
+
+        if (memberList == null) {
+            System.out.println("사용 가능");
+        } else {
+            System.out.println("사용 불가능");
+        }
+
+        return "";
+    }
 }
