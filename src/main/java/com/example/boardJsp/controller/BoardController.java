@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,18 +28,18 @@ public class BoardController {
     public String board(Model model,
                         @RequestParam(defaultValue = "1") int pageNum) {
 
-//        System.out.println("board()");
         pageNum = (pageNum - 1) * 10;
         boardSetting(model, pageNum);
+        model.addAttribute("view", "board.jsp");
 
-        return "board";
+//        return "board";
+        return "view";
     }
 
     // board(), login(), logout(), boardWrite() 공통 코드
     public void boardSetting(Model model,
                              int pageNum) {
 
-//        System.out.println("boardSetting()");
         model.addAttribute("pageNum", pageNum);
         model.addAttribute("boardList", boardService.boardList(pageNum));
         model.addAttribute("boardCount", boardService.boardCount());
@@ -96,11 +95,8 @@ public class BoardController {
 
     // 글쓰기 처리
     @PostMapping("/boardWriteProcess")
-    public String boardWrite(Model model,
-                             HttpServletRequest request,
-                             @ModelAttribute Board board) {
+    public String boardWrite(@ModelAttribute Board board) {
 
-//        System.out.println("boardWrite()");
         boardService.boardWrite(board);
 
         return "redirect:board";
@@ -111,22 +107,55 @@ public class BoardController {
     public String viewDetailBefore(@RequestParam int id,
                                    RedirectAttributes redirectAttributes) {
 
-        System.out.println("viewDetailBefore()");
-
         boardService.viewDetail(id);
         redirectAttributes.addAttribute("id", id);
 
         return "redirect:viewDetail";
     }
 
+    // 글 상세 보기2
     @GetMapping("/viewDetail")
     public String viewDetail(Model model,
                              @RequestParam int id) {
 
-        System.out.println("viewDetail() ");
+//        System.out.println("viewDetail()");
         Board board = boardService.viewDetail2(id);
         model.addAttribute("board", board);
 
         return "viewDetail";
+    }
+
+    // 글 삭제
+    @GetMapping("/boardDelete")
+    public String boardDelete(@RequestParam int id) {
+
+        boardService.boardDelete(id);
+
+        return "redirect:board";
+    }
+
+    // 글 수정
+    @GetMapping("/boardUpdate")
+    public String boardUpdate(Model model,
+                              @RequestParam int id) {
+
+//        System.out.println("boardUpdate()");
+        Board board = boardService.viewDetail2(id);
+        model.addAttribute("board", board);
+
+        return "boardUpdate";
+    }
+
+    // 글 수정 처리
+    @PostMapping("/boardUpdateProcess")
+    public String boardUpdateProcess(Model model,
+                                     @ModelAttribute Board board,
+                                     RedirectAttributes redirectAttributes) {
+
+//        System.out.println("boardUpdateProcess()");
+        boardService.boardUpdateProcess(board);
+        redirectAttributes.addAttribute("id", board.getId());
+
+        return "redirect:viewDetail";
     }
 }

@@ -2,10 +2,7 @@ package com.example.boardJsp.mapper;
 
 import com.example.boardJsp.dto.Board;
 import com.example.boardJsp.dto.Member;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -17,7 +14,7 @@ public interface BoardMapper {
             "SELECT *\n" +
             "FROM   board\n" +
             "ORDER  BY id DESC\n" +
-            "LIMIT  #{pageNum}, 10 "
+            "LIMIT  #{pageNum}, 10"
     )
     List<Board> boardList(int pageNum);
 
@@ -25,7 +22,7 @@ public interface BoardMapper {
     // 게시글 하단 버튼 관련
     @Select(
             "SELECT Ceil(Count(*) / 10)\n" +
-            "FROM   board "
+            "FROM   board"
     )
     int boardCount();
 
@@ -35,7 +32,7 @@ public interface BoardMapper {
             "SELECT *\n" +
             "FROM   member\n" +
             "WHERE  id = #{id}\n" +
-            "   AND pw = #{pw} "
+            "   AND pw = #{pw}"
     )
     List<Member> loginCheck(Member member);
 
@@ -48,7 +45,7 @@ public interface BoardMapper {
             "             content)\n" +
             "VALUES     (#{writer},\n" +
             "            #{title},\n" +
-            "            #{content}) "
+            "            #{content})"
     )
     void boardWrite(Board board);
 
@@ -57,7 +54,7 @@ public interface BoardMapper {
     @Select(
             "SELECT *\n" +
             "FROM   board\n" +
-            "WHERE  id = ${id} "
+            "WHERE  id = #{id}"
     )
     Board viewDetail(int id);
 
@@ -65,7 +62,23 @@ public interface BoardMapper {
     @Update(
             "UPDATE board\n" +
             "SET    views = views + 1\n" +
-            "WHERE  id = ${id} "
+            "WHERE  id = #{id}"
     )
     void viewsPlus(int id);
+
+    // 글 삭제
+    @Delete(
+            "DELETE FROM board\n" +
+            "WHERE  id = #{id}"
+    )
+    void boardDelete(int id);
+
+    // 글 수정 처리
+    @Update(
+            "UPDATE board\n" +
+            "SET    title = #{title},\n" +
+            "       content = #{content}\n" +
+            "WHERE  id = #{id}"
+    )
+    void boardUpdateProcess(Board board);
 }

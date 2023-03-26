@@ -77,4 +77,16 @@ public class BoardService {
 
         return boardMapper.viewDetail(id);
     }
+
+    // 글 삭제
+    public void boardDelete(int id) {
+
+        boardMapper.boardDelete(id);
+    }
+
+    // 글 수정 처리
+    public void boardUpdateProcess(Board board) {
+
+        boardMapper.boardUpdateProcess(board);
+    }
 }

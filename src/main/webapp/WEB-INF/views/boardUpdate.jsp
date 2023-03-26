@@ -14,10 +14,10 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h4>글 상세보기</h4>
+                        <h4>글 수정</h4>
                     </div>
                     <div class="card-body">
-                        <form action="/boardWriteProcess" method="post">
+                        <form action="/boardUpdateProcess?id=${board.id}" method="post">
                             <div class="form-group">
                                 <label for="writer">글번호</label>
                                 <input type="text" class="form-control" name="id" value="${board.id}" id="id" disabled>
@@ -28,11 +28,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="title">제목</label>
-                                <input type="text" class="form-control" name="title" value="${board.title}" id="title" disabled>
+                                <input type="text" class="form-control" name="title" value="${board.title}" id="title">
                             </div>
                             <div class="form-group">
                                 <label for="content">내용</label>
-                                <input type="text" class="form-control" name="content" value="${board.content}" id="content" disabled>
+                                <input type="text" class="form-control" name="content" value="${board.content}" id="content">
                             </div>
                             <div class="form-group">
                                 <label for="views">조회수</label>
@@ -43,8 +43,8 @@
                                 <input type="text" class="form-control" name="writingDate" value="${board.writingDate}" id="writingDate" disabled>
                             </div>
                             <div>
-                                <button onclick="location.href='/boardUpdate?id=${board.id}' "type="button" class="btn btn-secondary">수정</button>
-                                <button onclick="location.href='/boardDelete?id=${board.id}' "type="button" class="btn btn-secondary">삭제</button>
+<%--                                <button onclick="location.href='/boardUpdateProcess' "type="button" class="btn btn-secondary">수정</button>--%>
+                                <button type="submit" class="btn btn-secondary">수정</button>
                             </div>
                         </form>
                     </div>
