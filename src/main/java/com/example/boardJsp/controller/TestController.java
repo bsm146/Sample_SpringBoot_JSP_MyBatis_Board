@@ -48,9 +48,8 @@ public class TestController {
     @ResponseBody
     public String idCheck(@RequestParam String id) {
 
-//        System.out.println("idCheck()");
         if (id.equals("")) {
-            return "Null";
+            return "NULL";
         }
         String idCheckResult = boardService.idCheck(id);
 
