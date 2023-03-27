@@ -95,13 +95,16 @@ public class BoardService {
     public String idCheck(String id) {
 
         List<Member> memberList = boardMapper.idCheck(id);
+        String idCheckResult = "";
 
-        if (memberList == null) {
-            System.out.println("사용 가능");
+        if (memberList.isEmpty()) {
+//            System.out.println("ID 사용 가능");
+            idCheckResult = "Y";
         } else {
-            System.out.println("사용 불가능");
+//            System.out.println("ID 사용 불가능");
+            idCheckResult = "N";
         }
 
-        return "";
+        return idCheckResult;
     }
 }

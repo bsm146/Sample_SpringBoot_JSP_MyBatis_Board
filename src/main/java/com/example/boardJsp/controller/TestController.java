@@ -20,17 +20,10 @@ public class TestController {
     @Autowired
     BoardService boardService;
 
-    @GetMapping("/a")
-    public String a(Model model) {
-
-        return "a";
-    }
-
     @GetMapping("/b")
     @ResponseBody
     public String b(Model model,
                     HttpServletRequest request) {
-
 
         System.out.println("컨트롤러 b()");
         String name = request.getParameter("name");
@@ -45,14 +38,20 @@ public class TestController {
         return member.getName();
     }
 
-    @GetMapping("/idCheck")
-    public String idCheck(Model model,
-                          HttpServletRequest request) {
+    @GetMapping("/a")
+    public String a(Model model) {
 
-        System.out.println("idCheck()");
-//        System.out.println("id = " + id);
-        System.out.println(request.getParameter("name"));
-//        boardService.idCheck(id);
         return "a";
+    }
+
+    @PostMapping("/idCheck")
+    @ResponseBody
+    public String idCheck(Model model,
+                          @RequestParam String id) {
+
+//        System.out.println("idCheck()");
+        String idCheckResult = boardService.idCheck(id);
+
+        return idCheckResult;
     }
 }

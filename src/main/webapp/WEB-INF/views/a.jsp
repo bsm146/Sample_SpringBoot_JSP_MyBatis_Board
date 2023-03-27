@@ -8,38 +8,45 @@
     <title>a.jsp</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
     <h3>a.jsp</h3>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <button onclick="test2()">ID 중복 체크</button>
-    <button onclick="test()">버튼</button>
-    <div id="result"></div>
-
-    <br><br><br><br><br><br>
+    <br><br><br>
+    <div style="margin-left: 50px">
+        <label for="id">ID</label>
+        <input type="text" name="id" id="id" placeholder="Enter id" autofocus>
+        <button onclick="test2()" class="btn btn-secondary">ID 중복 체크</button>
+        <p id="result"></p>
+    </div>
 
     <script>
 
         function test2() {
 
             console.log('자바스크립트 test2()');
-            var data = {
-                name: "a",
-                age: 28
-            };
 
+            var data = {
+                id: $('#id').val(),
+                age: 31
+            };
 
             $.ajax({
 
                 url: "/idCheck",
-                type: "GET",
+                type: "POST",
                 data: data,
 
                 success: function(data){
+
+                    if (data === "Y") {
+                        $('#result').html('사용가능한 ID입니다');
+                        $('#result').css("color", "green");
+                    } else {
+                        $('#result').html('사용중인 ID입니다');
+                        $('#result').css("color", "red");
+                    }
 
                     // $('#result').html(data);
                     // $('#result').css({
