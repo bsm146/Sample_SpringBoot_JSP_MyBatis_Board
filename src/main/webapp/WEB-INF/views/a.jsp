@@ -15,20 +15,18 @@
     <h3>a.jsp</h3>
     <br><br><br>
     <div style="margin-left: 50px">
-        <input type="text" name="id" id="id" onkeydown="test(event)" placeholder="ID" autofocus>
+        <input type="text" name="id" id="id" placeholder="ID" autofocus>
         <button id="idCheck" onclick="idCheck()" class="btn btn-secondary">ID 중복 체크(엔터 가능)</button>
-        <p id="result">ID를 입력해주세요</p>
+        <p id="result"></p>
 
         <input type="text" id="input-field" placeholder="ID">
         <button class="btn btn-secondary" disabled>ID 중복 체크(실시간)</button>
-        <p id="result2">ID를 입력해주세요</p>
+        <p id="result2"></p>
     </div>
 
-
-    <%----------------------------- JavaScript -----------------------------%>
+    <%----------------------------- 자바스크립트 -----------------------------%>
 
     <script>
-
 
         $('#id').on('keydown', function() {
             if (event.keyCode === 13) {
@@ -53,16 +51,35 @@
 
                     success: function(data){
 
+                        // if (data === "Y") {
+                        //     $('#result2').html('사용가능한 ID입니다');
+                        //     $('#result2').css("color", "green");
+                        // } else if (data === "N") {
+                        //     $('#result2').html('사용중인 ID입니다');
+                        //     $('#result2').css("color", "red");
+                        // } else if (data === "NULL") {
+                        //     $('#result2').html('ID를 입력해주세요');
+                        //     $('#result2').css("color", "black");
+                        // }
+
+                        let msg;
+                        let color;
+
                         if (data === "Y") {
-                            $('#result2').html('사용가능한 ID입니다');
-                            $('#result2').css("color", "green");
+                            msg = '사용가능한 ID입니다';
+                            color = 'green';
+
                         } else if (data === "N") {
-                            $('#result2').html('사용중인 ID입니다');
-                            $('#result2').css("color", "red");
+                            msg = '사용중인 ID입니다';
+                            color = 'red';
+
                         } else if (data === "NULL") {
-                            $('#result2').html('ID를 입력해주세요');
-                            $('#result2').css("color", "black");
+                            msg = '';
+                            color = 'black';
                         }
+
+                        $('#result2').html(msg);
+                        $('#result2').css('color', color);
                     }
                 });
             }, 1);
