@@ -20,26 +20,8 @@ public class TestController {
     @Autowired
     BoardService boardService;
 
-    @GetMapping("/b")
-    @ResponseBody
-    public String b(Model model,
-                    HttpServletRequest request) {
-
-        System.out.println("컨트롤러 b()");
-        String name = request.getParameter("name");
-        String pw = request.getParameter("age");
-
-        List<Member> memberList = new ArrayList<>();
-        Member member = new Member();
-        member.setName(name);
-        member.setPw(pw);
-        memberList.add(member);
-
-        return member.getName();
-    }
-
     @GetMapping("/a")
-    public String a(Model model) {
+    public String a() {
 
         return "a";
     }
