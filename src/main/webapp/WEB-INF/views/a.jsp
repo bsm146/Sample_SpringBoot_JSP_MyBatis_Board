@@ -15,11 +15,12 @@
     <h3>a.jsp</h3>
     <br><br><br>
     <div style="margin-left: 50px">
-        <input type="text" name="id" id="id" onkeydown="test(event)"  placeholder="ID" autofocus>
-        <button id="idCheck" onclick="idCheck()" class="btn btn-secondary">ID 중복 체크</button>
+        <input type="text" name="id" id="id" onkeydown="test(event)" placeholder="ID" autofocus>
+        <button id="idCheck" onclick="idCheck()" class="btn btn-secondary">ID 중복 체크(엔터 가능)</button>
         <p id="result">ID를 입력해주세요</p>
 
-        <input type="text" id="input-field">
+        <input type="text" id="input-field" placeholder="ID">
+        <button class="btn btn-secondary" disabled>ID 중복 체크(실시간)</button>
         <p id="result2">ID를 입력해주세요</p>
     </div>
 
