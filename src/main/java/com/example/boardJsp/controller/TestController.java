@@ -46,10 +46,12 @@ public class TestController {
 
     @PostMapping("/idCheck")
     @ResponseBody
-    public String idCheck(Model model,
-                          @RequestParam String id) {
+    public String idCheck(@RequestParam String id) {
 
 //        System.out.println("idCheck()");
+        if (id.equals("")) {
+            return "Null";
+        }
         String idCheckResult = boardService.idCheck(id);
 
         return idCheckResult;

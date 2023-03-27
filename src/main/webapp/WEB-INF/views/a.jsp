@@ -15,17 +15,59 @@
     <h3>a.jsp</h3>
     <br><br><br>
     <div style="margin-left: 50px">
-        <label for="id">ID</label>
-        <input type="text" name="id" id="id" placeholder="Enter id" autofocus>
-        <button onclick="test2()" class="btn btn-secondary">ID 중복 체크</button>
+        <input type="text" name="id" id="id" placeholder="ID" autofocus>
+        <button id="idCheck" onclick="idCheck()" onkeydown="idCheck2()" class="btn btn-secondary">ID 중복 체크</button>
         <p id="result"></p>
+
+        <input type="text" id="input-field">
+        <p id="result2">ID를 입력해주세요</p>
     </div>
+
+
+    <%----------------------------- JavaScript -----------------------------%>
 
     <script>
 
-        function test2() {
+        $('#input-field').on('keydown', function(event) {
 
-            console.log('자바스크립트 test2()');
+
+            setTimeout(function() {
+
+                console.log($('#input-field').val());
+
+                var data = {
+                    id: $('#input-field').val(),
+                    age: 31
+                };
+
+                $.ajax({
+
+                    url: "/idCheck",
+                    type: "POST",
+                    data: data,
+
+                    success: function(data){
+
+                        if (data === "Y") {
+                            $('#result2').html('사용가능한 ID입니다');
+                            $('#result2').css("color", "green");
+                        } else if (data === "N") {
+                            $('#result2').html('사용중인 ID입니다');
+                            $('#result2').css("color", "red");
+                        } else if (data === "Null") {
+                            $('#result2').html('ID를 입력해주세요');
+                            $('#result2').css("color", "black");
+                        }
+                    }
+                });
+            }, 1);
+
+
+        });
+
+        function idCheck() {
+
+            console.log('test2()');
 
             var data = {
                 id: $('#id').val(),
@@ -47,52 +89,9 @@
                         $('#result').html('사용중인 ID입니다');
                         $('#result').css("color", "red");
                     }
-
-                    // $('#result').html(data);
-                    // $('#result').css({
-                    //     "backgroundColor" : "yellow"
-                    // });
-                    // $('#result').append('<p>성공</p>');
-                    //
-                    // console.log("성공");
-                    // console.log(data[0].name);
-                    // console.log(data[0].pw);
-                    // console.log(data);
                 }
             });
         }
-
-        function test() {
-
-            console.log('자바스크립트 test()');
-            var data = {
-                name: "a",
-                age: 28
-            };
-
-
-            $.ajax({
-
-                url: "/b",
-                type: "GET",
-                data: data,
-
-                success: function(data){
-
-                    $('#result').html(data);
-                    $('#result').css({
-                        "backgroundColor" : "yellow"
-                    });
-                    $('#result').append('<p>성공</p>');
-
-                    console.log("성공");
-                    console.log(data[0].name);
-                    console.log(data[0].pw);
-                    console.log(data);
-                }
-            });
-        }
-
 
     </script>
 
