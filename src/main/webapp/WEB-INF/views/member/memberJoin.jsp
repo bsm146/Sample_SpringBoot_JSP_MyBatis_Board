@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
@@ -11,98 +11,195 @@
         body {
             background-color: #fff;
         }
+
         .card {
             border-radius: 10px;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
         }
-        .card-header {
-            background-color: #d2d2d2;
-            color: #fff;
-            border-radius: 10px 10px 0 0;
-        }
+
         .form-control:focus {
             border-color: #d19ad0;
             box-shadow: none;
+        }
+
+        .addMsg {
+            font-size: 12px;
+            margin-top: 10px;
         }
     </style>
 
 </head>
 <body>
 
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h4>회원가입</h4>
-                    </div>
-                    <div class="card-body">
-                        <form action="/loginCheck" method="post">
-                            <div class="form-group">
-                                <label for="id">ID</label>
-                                <input type="text" class="form-control" name="id" id="id" placeholder="Enter id" autofocus>
-                                <p id="idCheck"></p>
-                            </div>
-                            <div class="form-group">
-                                <label for="pw">NAME</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Enter name">
-                            </div>
-                            <div class="form-group">
-                                <label for="pw">PASSWORD</label>
-                                <input type="password" class="form-control" name="pw" id="pw" placeholder="Enter password">
-                            </div>
-                            <div class="form-group text-center">
-                                <button type="button" onclick="location.href='/memberJoin'" class="btn btn-secondary">회원가입</button>
-                            </div>
-                        </form>
-                    </div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <%--                <div class="card-header text-center">--%>
+                <%--                    <h4>회원가입</h4>--%>
+                <%--                </div>--%>
+                <div class="card-body">
+                    <form action="/loginCheck" method="post">
+                        <div class="form-group">
+                            <label for="id">아이디</label>
+                            <input type="text" class="enter form-control" name="id" id="id" placeholder="" autofocus>
+                            <p class="addMsg" id="idCheck"></p>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label for="pw">비밀번호</label>
+                            <input type="password" class="enter form-control" name="pw" id="pw" placeholder="">
+                            <p class="addMsg" id="pwCheck"></p>
+                        </div>
+                        <br/>
+                        <div class="form-group">
+                            <label for="pw">비밀번호 재확인</label>
+                            <input type="password" class="enter form-control" name="pw2" id="pw2" placeholder="">
+                            <p class="addMsg" id="pwCheck2"></p>
+                        </div>
+                        <br/>
+<%--                        <div class="form-group">--%>
+<%--                            <label for="pw">이름</label>--%>
+<%--                            <input type="text" class="enter form-control" name="name" id="name" placeholder="">--%>
+<%--                        </div>--%>
+                        <div class="form-group text-center">
+                            <button type="button" onclick="joinCheck()" class="btn btn-secondary">가입하기</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
+<script>
 
-        $('#id').on('keydown', function aaa() {
+    var idCheckResult = false;
+    var pwCheckResult = false;
+    var ESSENTIAL_INFORMATION = '필수 정보입니다';
 
-            setTimeout(function() {
+    $('#id').on('keydown', function () {
 
-                var data = {
-                    id: $('#id').val()
-                };
+        setTimeout(function () {
 
-                $.ajax({
+            var data = {
+                id: $('#id').val()
+            };
 
-                    url: "/idCheck",
-                    type: "POST",
-                    data: data,
+            $.ajax({
+                url: "/idCheck",
+                type: "POST",
+                data: data,
 
-                    success: function(data){
+                success: function (data) {
 
-                        let msg;
-                        let color;
+                    idCheckResult = false;
+                    let msg = '';
+                    let color = 'red';
 
-                        if (data === "Y") {
-                            msg = '사용가능한 ID입니다';
-                            color = 'green';
+                    if (data === 'NULL') {
+                        msg = ESSENTIAL_INFORMATION;
 
-                        } else if (data === "N") {
-                            msg = '사용중인 ID입니다';
-                            color = 'red';
+                    } else if (data === "Y") {
+                        msg = '사용가능한 아이디입니다';
+                        color = 'green';
+                        idCheckResult = true;
 
-                        } else if (data === "NULL") {
-                            msg = '';
-                            color = 'black';
-                        }
-
-                        $('#idCheck').html(msg);
-                        $('#idCheck').css('color', color);
+                    } else if (data === "N") {
+                        msg = '사용중인 아이디입니다';
                     }
-                });
-            }, 1);
-        });
 
-    </script>
+                    $('#idCheck')
+                        .html(msg)
+                        .css('color', color);
+                }
+            });
+        }, 1);
+    })
+
+    $('#pw').on('keydown', function () {
+
+        setTimeout(function () {
+
+            if ($('#pw2').val() === '') {
+                $('#pwCheck')
+                    .html(ESSENTIAL_INFORMATION)
+                    .css('color', 'red');
+            }
+
+
+        }, 1);
+    });
+
+    $('#pw2').on('keydown', function () {
+
+        setTimeout(function () {
+
+            let msg = '';
+            let color = 'red';
+            pwCheckResult = false;
+
+            if ($('#pw2').val() === '') {
+                msg = ESSENTIAL_INFORMATION;
+
+            } else if ($('#pw').val() === $('#pw2').val()) {
+                msg = '비밀번호 일치';
+                color = 'green';
+                pwCheckResult = true;
+
+            } else {
+                msg = '비밀번호 불일치';
+
+            }
+
+            $('#pwCheck2')
+                .html(msg)
+                .css('color', color);
+        }, 1);
+    });
+
+
+
+    function joinCheck() {
+
+        if ($('#id').val() === '') {
+            alert('아이디를 입력해주세요');
+            $('#id').focus();
+            return;
+        } else if ($('#pw').val() === '') {
+            alert('비밀번호를 입력해주세요');
+            $('#pw').focus();
+            return;
+        } else if ($('#pw2').val() === '') {
+            alert('비밀번호를 재확인해주세요');
+            $('#pw2').focus();
+            return;
+        } else if (!idCheckResult) {
+            alert('사용중인 아이디입니다');
+            $('#id').focus();
+            return;
+        } else if (!pwCheckResult) {
+            alert('비밀번호를 재확인해주세요');
+            $('#pw2').focus();
+            return;
+        }
+
+        if (idCheckResult && pwCheckResult) {
+            alert("회원가입이 완료되었습니다");
+            // location.href='/memberJoin';
+        } else {
+            alert("회원가입 실패");
+        }
+    }
+
+    $('.enter').on('keydown', function () {
+        if (event.keyCode === 13) {
+            joinCheck();
+        }
+    });
+
+
+</script>
 
 </body>
 </html>
