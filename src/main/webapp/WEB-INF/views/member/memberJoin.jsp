@@ -39,7 +39,7 @@
                 <%--                    <h4>회원가입</h4>--%>
                 <%--                </div>--%>
                 <div class="card-body">
-                    <form action="/loginCheck" method="post">
+                    <form action="/memberJoin" method="post">
                         <div class="form-group">
                             <label for="id">아이디</label>
                             <input type="text" class="enter form-control" name="id" id="id" placeholder="" autofocus>
@@ -58,12 +58,12 @@
                             <p class="addMsg" id="pwCheck2"></p>
                         </div>
                         <br/>
-<%--                        <div class="form-group">--%>
-<%--                            <label for="pw">이름</label>--%>
-<%--                            <input type="text" class="enter form-control" name="name" id="name" placeholder="">--%>
-<%--                        </div>--%>
+                        <%--                        <div class="form-group">--%>
+                        <%--                            <label for="pw">이름</label>--%>
+                        <%--                            <input type="text" class="enter form-control" name="name" id="name" placeholder="">--%>
+                        <%--                        </div>--%>
                         <div class="form-group text-center">
-                            <button type="button" onclick="joinCheck()" class="btn btn-secondary">가입하기</button>
+                            <button type="button" id="join" class="btn btn-secondary">가입하기</button>
                         </div>
                     </form>
                 </div>
@@ -121,11 +121,39 @@
 
         setTimeout(function () {
 
-            if ($('#pw2').val() === '') {
-                $('#pwCheck')
-                    .html(ESSENTIAL_INFORMATION)
-                    .css('color', 'red');
+            let msg = '';
+            let color = '';
+            pwCheckResult = false;
+
+            if ($('#pw').val() !== '' &&
+                $('#pw').val() === $('#pw2').val()) {
+
+                msg = '비밀번호 일치';
+                color = 'green';
+                pwCheckResult = true;
+
+            } else if ($('#pw').val() !== $('#pw2').val()) {
+
+                msg = '비밀번호 불일치';
+                color = 'red';
             }
+
+            $('#pwCheck2')
+                .html(msg)
+                .css('color', color);
+
+            if ($('#pw').val() === '') {
+                msg = ESSENTIAL_INFORMATION;
+                color = 'red';
+
+            } else {
+                msg = '';
+                color = '';
+            }
+
+            $('#pwCheck')
+                .html(msg)
+                .css('color', color);
 
 
         }, 1);
@@ -158,9 +186,17 @@
         }, 1);
     });
 
+    $('#join').on('click', function () {
+        join();
+    });
 
+    $('.enter').on('keydown', function () {
+        if (event.keyCode === 13) {
+            join();
+        }
+    });
 
-    function joinCheck() {
+    function join() {
 
         if ($('#id').val() === '') {
             alert('아이디를 입력해주세요');
@@ -186,17 +222,11 @@
 
         if (idCheckResult && pwCheckResult) {
             alert("회원가입이 완료되었습니다");
-            // location.href='/memberJoin';
+            location.href='/memberJoin';
         } else {
             alert("회원가입 실패");
         }
     }
-
-    $('.enter').on('keydown', function () {
-        if (event.keyCode === 13) {
-            joinCheck();
-        }
-    });
 
 
 </script>
