@@ -1,5 +1,6 @@
 package com.example.boardJsp.controller;
 
+import com.example.boardJsp.directory.Directory;
 import com.example.boardJsp.dto.Board;
 import com.example.boardJsp.dto.Member;
 import com.example.boardJsp.service.BoardService;
@@ -20,8 +21,8 @@ import java.util.Map;
 @Controller
 public class BoardController {
 
-    private final String BOARD = "board/";
-    private final String LOGIN = "login/";
+    public final String BOARD = Directory.BOARD;
+    public final String LOGIN = Directory.LOGIN;
 
     @Autowired
     private BoardService boardService;
@@ -33,7 +34,7 @@ public class BoardController {
 
         pageNum = (pageNum - 1) * 10;
         boardSetting(model, pageNum);
-        model.addAttribute("view", BOARD + "board.jsp");
+        model.addAttribute("view", BOARD + "board");
 
         return "view";
     }
@@ -51,7 +52,7 @@ public class BoardController {
     @GetMapping("/login")
     public String login(Model model) {
 
-        model.addAttribute("view", LOGIN + "login.jsp");
+        model.addAttribute("view", LOGIN + "login");
 
         return "view";
     }
@@ -67,14 +68,14 @@ public class BoardController {
 
         if (login == null) {
 
-            model.addAttribute("view", LOGIN + "login.jsp");
+            model.addAttribute("view", LOGIN + "login");
             return "view";
 
         } else {
 
             session.setAttribute("userID", login.get("Y").get(0).getId());
             boardSetting(model, 0);
-            model.addAttribute("view", BOARD + "board.jsp");
+            model.addAttribute("view", BOARD + "board");
             return "view";
         }
     }
@@ -87,7 +88,7 @@ public class BoardController {
         HttpSession session = request.getSession();
         session.removeAttribute("userID");
         boardSetting(model, 0);
-        model.addAttribute("view", BOARD + "board.jsp");
+        model.addAttribute("view", BOARD + "board");
 
         return "view";
     }
@@ -96,7 +97,8 @@ public class BoardController {
     @GetMapping("/boardWrite")
     public String boardWrite(Model model) {
 
-        model.addAttribute("view", BOARD + "boardWrite.jsp");
+        model.addAttribute("view", BOARD + "boardWrite");
+
         return "view";
     }
 
@@ -125,10 +127,9 @@ public class BoardController {
     public String viewDetail(Model model,
                              @RequestParam int id) {
 
-//        System.out.println("viewDetail()");
         Board board = boardService.viewDetail2(id);
         model.addAttribute("board", board);
-        model.addAttribute("view", BOARD + "boardDetail.jsp");
+        model.addAttribute("view", BOARD + "boardDetail");
 
         return "view";
     }
@@ -147,10 +148,9 @@ public class BoardController {
     public String boardUpdate(Model model,
                               @RequestParam int id) {
 
-//        System.out.println("boardUpdate()");
         Board board = boardService.viewDetail2(id);
         model.addAttribute("board", board);
-        model.addAttribute("view", BOARD + "boardUpdate.jsp");
+        model.addAttribute("view", BOARD + "boardUpdate");
 
 
         return "view";
@@ -161,7 +161,6 @@ public class BoardController {
     public String boardUpdateProcess(@ModelAttribute Board board,
                                      RedirectAttributes redirectAttributes) {
 
-//        System.out.println("boardUpdateProcess()");
         boardService.boardUpdateProcess(board);
         redirectAttributes.addAttribute("id", board.getId());
 

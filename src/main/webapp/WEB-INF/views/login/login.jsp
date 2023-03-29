@@ -51,8 +51,7 @@
                         </div>
                         <div class="form-group text-center">
                             <button type="submit" class="btn btn-secondary">로그인</button>
-                            <button type="button" onclick="location.href='/memberJoin'" class="btn btn-secondary">회원가입
-                            </button>
+                            <button type="button" onclick="location.href='/memberJoinPage'" class="btn btn-secondary">회원가입</button>
                         </div>
                     </form>
                 </div>

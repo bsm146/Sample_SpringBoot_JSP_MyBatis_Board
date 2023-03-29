@@ -12,7 +12,7 @@
 <body>
 
 <c:import url="nav/nav.jsp"/>
-<c:import url="${view}"/>
+<c:import url="${view}.jsp"/>
 
 </body>
 </html>
