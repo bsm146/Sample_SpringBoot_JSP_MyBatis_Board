@@ -1,5 +1,6 @@
 package com.example.boardJsp.service;
 
+import com.example.boardJsp.dto.Member;
 import com.example.boardJsp.mapper.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,8 @@ public class MemberService {
     MemberMapper memberMapper;
 
     // 회원가입 처리
-    public void memberJoin() {
+    public void memberJoin(Member member) {
 
-        memberMapper.memberJoin();
+        memberMapper.memberJoin(member);
     }
 }

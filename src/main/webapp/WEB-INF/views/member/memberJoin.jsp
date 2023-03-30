@@ -39,7 +39,7 @@
                 <%--                    <h4>회원가입</h4>--%>
                 <%--                </div>--%>
                 <div class="card-body">
-                    <form action="/memberJoin" method="post">
+                    <form action="/memberJoin" method="post" name="memberJoin">
                         <div class="form-group">
                             <label for="id">아이디</label>
                             <input type="text" class="enter form-control" name="id" id="id" placeholder="" autofocus>
@@ -58,10 +58,10 @@
                             <p class="addMsg" id="pwCheck2"></p>
                         </div>
                         <br/>
-                        <%--                        <div class="form-group">--%>
-                        <%--                            <label for="pw">이름</label>--%>
-                        <%--                            <input type="text" class="enter form-control" name="name" id="name" placeholder="">--%>
-                        <%--                        </div>--%>
+                        <div class="form-group">
+                            <label for="pw">이름</label>
+                            <input type="text" class="enter form-control" name="name" id="name" placeholder="">
+                        </div>
                         <div class="form-group text-center">
                             <button type="button" id="join" class="btn btn-secondary">가입하기</button>
                         </div>
@@ -222,9 +222,10 @@
 
         if (idCheckResult && pwCheckResult) {
             alert("회원가입이 완료되었습니다");
-            location.href='/memberJoin';
+            document.memberJoin.submit();
         } else {
             alert("회원가입 실패");
+            return;
         }
     }
 

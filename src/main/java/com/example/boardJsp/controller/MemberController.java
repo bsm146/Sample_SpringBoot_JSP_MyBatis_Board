@@ -32,12 +32,9 @@ public class MemberController {
     public String memberJoin(Model model,
                              Member member) {
 
-        System.out.println(member.getId());
-        System.out.println(member.getPw());
-        memberService.memberJoin();
-
+        memberService.memberJoin(member);
         model.addAttribute("view", BOARD + "board");
 
-        return "view";
+        return "redirect:board";
     }
 }

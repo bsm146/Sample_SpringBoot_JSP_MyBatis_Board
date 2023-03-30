@@ -5,7 +5,6 @@ import com.example.boardJsp.dto.Member;
 import com.example.boardJsp.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -98,13 +97,30 @@ public class BoardService {
         String idCheckResult = "";
 
         if (memberList.isEmpty()) {
-//            System.out.println("ID 사용 가능");
             idCheckResult = "Y";
+
         } else {
-//            System.out.println("ID 사용 불가능");
             idCheckResult = "N";
         }
 
         return idCheckResult;
+    }
+
+    // idCheck 테스트
+    public String pwCheck(Member member) {
+
+        List<Member> memberList = boardMapper.loginCheck(member);
+        String pwCheck = "";
+
+        if (memberList.isEmpty()) {
+//            System.out.println("N");
+            pwCheck = "N";
+
+        } else {
+//            System.out.println("Y");
+            pwCheck = "Y";
+        }
+
+        return pwCheck;
     }
 }
