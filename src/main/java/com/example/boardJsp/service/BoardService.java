@@ -9,9 +9,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class BoardService {
@@ -42,21 +40,6 @@ public class BoardService {
     public int boardCount() {
 
         return boardMapper.boardCount();
-    }
-
-    // 로그인 id, pw 체크
-    public Map<String, List<Member>> loginCheck(Member member) {
-
-        List<Member> loginUser = boardMapper.loginCheck(member);
-        Map<String, List<Member>> login = null;
-
-        if (!loginUser.isEmpty()) {
-
-            login = new HashMap<>();
-            login.put("Y", loginUser);
-        }
-
-        return login;
     }
 
     // 게시글 작성
@@ -93,31 +76,29 @@ public class BoardService {
     // idCheck 테스트
     public String idCheck(String id) {
 
-        List<Member> memberList = boardMapper.idCheck(id);
-        String idCheckResult = "";
+        List<Member> idCheckResult = boardMapper.idCheck(id);
+        String idCheck = "";
 
-        if (memberList.isEmpty()) {
-            idCheckResult = "Y";
+        if (idCheckResult.isEmpty()) {
+            idCheck = "Y";
 
         } else {
-            idCheckResult = "N";
+            idCheck = "N";
         }
 
-        return idCheckResult;
+        return idCheck;
     }
 
-    // idCheck 테스트
+    // pwCheck 테스트
     public String pwCheck(Member member) {
 
-        List<Member> memberList = boardMapper.loginCheck(member);
+        List<Member> pwCheckResult = boardMapper.loginCheck(member);
         String pwCheck = "";
 
-        if (memberList.isEmpty()) {
-//            System.out.println("N");
+        if (pwCheckResult.isEmpty()) {
             pwCheck = "N";
 
         } else {
-//            System.out.println("Y");
             pwCheck = "Y";
         }
 

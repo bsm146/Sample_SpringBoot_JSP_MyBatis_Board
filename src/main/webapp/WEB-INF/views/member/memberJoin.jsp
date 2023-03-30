@@ -61,6 +61,7 @@
                         <div class="form-group">
                             <label for="pw">이름</label>
                             <input type="text" class="enter form-control" name="name" id="name" placeholder="">
+                            <p class="addMsg" id="nameCheck"></p>
                         </div>
                         <div class="form-group text-center">
                             <button type="button" id="join" class="btn btn-secondary">가입하기</button>
@@ -74,15 +75,16 @@
 
 <script>
 
-    var idCheckResult = false;
-    var pwCheckResult = false;
-    var ESSENTIAL_INFORMATION = '필수 정보입니다';
+    let idCheckResult = false;
+    let pwCheckResult = false;
+    let nameCheckResult = false;
+    let ESSENTIAL_INFORMATION = '필수 정보입니다';
 
     $('#id').on('keydown', function () {
 
         setTimeout(function () {
 
-            var data = {
+            let data = {
                 id: $('#id').val()
             };
 
@@ -186,6 +188,29 @@
         }, 1);
     });
 
+    $('#name').on('keydown', function () {
+
+        setTimeout(function () {
+
+            let msg = '';
+            let color = 'red';
+            nameCheckResult = false;
+
+            if ($('#name').val() === '') {
+                msg = ESSENTIAL_INFORMATION;
+
+            } else {
+                msg = '';
+                nameCheckResult = true;
+            }
+
+            $('#nameCheck')
+                .html(msg)
+                .css('color', color);
+
+        }, 1);
+    })
+
     $('#join').on('click', function () {
         join();
     });
@@ -220,7 +245,7 @@
             return;
         }
 
-        if (idCheckResult && pwCheckResult) {
+        if (idCheckResult && pwCheckResult && nameCheckResult) {
             alert("회원가입이 완료되었습니다");
             document.memberJoin.submit();
         } else {

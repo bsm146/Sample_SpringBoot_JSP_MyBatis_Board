@@ -38,7 +38,7 @@
 <%--                        <a class="nav-link" href="#">Pricing</a>--%>
 <%--                    </li>--%>
                     <li class="nav-item">
-                        <a class="nav-link active" href=${empty userID ? "/login" : "/logout"}>${empty userID ? "" : userID} ${empty userID ? "로그인" : "님 로그아웃"}</a>
+                        <a class="nav-link active" href=${empty userID ? "/loginPage" : "/logout"}>${empty userID ? "" : userID} ${empty userID ? "로그인" : "님 로그아웃"}</a>
                     </li>
 <%--                    <li class="nav-item dropdown">--%>
 <%--                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>--%>

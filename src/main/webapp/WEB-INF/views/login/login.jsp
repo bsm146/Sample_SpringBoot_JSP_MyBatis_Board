@@ -46,7 +46,7 @@
                 <%--                    <h4>로그인</h4>--%>
                 <%--                </div>--%>
                 <div class="card-body">
-                    <form action="/loginCheck" method="post" name="login">
+                    <form action="/login" method="post" name="login">
                         <div class="form-group">
                             <label for="id">아이디</label>
                             <input type="text" class="enter form-control" name="id" id="id" placeholder="" autofocus>
@@ -61,6 +61,7 @@
                         <div class="form-group text-center">
                             <button type="button" class="btn btn-secondary" id="login">로그인</button>
                             <button type="button" onclick="location.href='/memberJoinPage'" class="btn btn-secondary">회원가입</button>
+                            <p class="addMsg" id="nameCheck"></p>
                         </div>
                     </form>
                 </div>
@@ -184,7 +185,6 @@
         }
 
         if (idCheckResult && pwCheckResult) {
-            alert($('#id').val() + '님 환영합니다');
             document.login.submit();
         } else {
             alert("로그인 실패");

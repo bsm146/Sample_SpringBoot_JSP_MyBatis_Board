@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MemberController {
 
-    public final String MEMBER = Directory.MEMBER;
-    public final String BOARD = Directory.BOARD;
+    public static final String MEMBER = Directory.MEMBER;
+    public static final String BOARD = Directory.BOARD;
 
     @Autowired
     private MemberService memberService;

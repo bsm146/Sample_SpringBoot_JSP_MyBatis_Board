@@ -38,7 +38,6 @@ public class TestController {
             return "NULL";
         }
         String pwCheckResult = boardService.pwCheck(member);
-//        System.out.println(pwCheckResult);
 
         return pwCheckResult;
     }

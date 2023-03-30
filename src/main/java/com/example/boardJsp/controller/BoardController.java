@@ -15,14 +15,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Map;
 
 @Controller
 public class BoardController {
 
-    public final String BOARD = Directory.BOARD;
-    public final String LOGIN = Directory.LOGIN;
+    public static final String BOARD = Directory.BOARD;
+    public static final String LOGIN = Directory.LOGIN;
 
     @Autowired
     private BoardService boardService;
@@ -33,24 +31,17 @@ public class BoardController {
                         @RequestParam(defaultValue = "1") int pageNum) {
 
         pageNum = (pageNum - 1) * 10;
-        boardSetting(model, pageNum);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("boardList", boardService.boardList(pageNum));
+        model.addAttribute("boardCount", boardService.boardCount());
         model.addAttribute("view", BOARD + "board");
 
         return "view";
     }
 
-    // board(), login(), logout(), boardWrite() 공통 코드
-    public void boardSetting(Model model,
-                             int pageNum) {
-
-        model.addAttribute("pageNum", pageNum);
-        model.addAttribute("boardList", boardService.boardList(pageNum));
-        model.addAttribute("boardCount", boardService.boardCount());
-    }
-
     // 로그인 페이지 이동
-    @GetMapping("/login")
-    public String login(Model model) {
+    @GetMapping("/loginPage")
+    public String loginPage(Model model) {
 
         model.addAttribute("view", LOGIN + "login");
 
@@ -58,26 +49,13 @@ public class BoardController {
     }
 
     // 로그인 id, pw 체크
-    @PostMapping("/loginCheck")
-    public String login(Model model,
-                        HttpServletRequest request,
-                        @ModelAttribute Member member) {
+    @PostMapping("/login")
+    public String login(@ModelAttribute Member member,
+                        HttpServletRequest request) {
 
-        Map<String, List<Member>> login = boardService.loginCheck(member);
         HttpSession session = request.getSession();
-
-        if (login == null) {
-
-            model.addAttribute("view", LOGIN + "login");
-            return "view";
-
-        } else {
-
-            session.setAttribute("userID", login.get("Y").get(0).getId());
-            boardSetting(model, 0);
-            model.addAttribute("view", BOARD + "board");
-            return "view";
-        }
+        session.setAttribute("userID", member.getId());
+        return "redirect:board";
     }
 
     // 로그아웃
@@ -87,10 +65,9 @@ public class BoardController {
 
         HttpSession session = request.getSession();
         session.removeAttribute("userID");
-        boardSetting(model, 0);
         model.addAttribute("view", BOARD + "board");
 
-        return "view";
+        return "redirect:board";
     }
 
     // 글쓰기 페이지 이동
@@ -151,7 +128,6 @@ public class BoardController {
         Board board = boardService.viewDetail2(id);
         model.addAttribute("board", board);
         model.addAttribute("view", BOARD + "boardUpdate");
-
 
         return "view";
     }
