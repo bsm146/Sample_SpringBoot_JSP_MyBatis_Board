@@ -1,8 +1,8 @@
-package com.example.boardJsp.controller;
+package com.example.boardJsp.member.controller;
 
 import com.example.boardJsp.directory.Directory;
-import com.example.boardJsp.dto.Member;
-import com.example.boardJsp.service.MemberService;
+import com.example.boardJsp.member.dto.Member;
+import com.example.boardJsp.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

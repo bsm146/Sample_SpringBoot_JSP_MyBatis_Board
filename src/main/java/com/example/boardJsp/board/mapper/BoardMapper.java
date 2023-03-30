@@ -1,7 +1,7 @@
-package com.example.boardJsp.mapper;
+package com.example.boardJsp.board.mapper;
 
-import com.example.boardJsp.dto.Board;
-import com.example.boardJsp.dto.Member;
+import com.example.boardJsp.board.dto.Board;
+import com.example.boardJsp.member.dto.Member;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

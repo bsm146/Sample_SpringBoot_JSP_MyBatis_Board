@@ -1,4 +1,4 @@
-package com.example.boardJsp.dto;
+package com.example.boardJsp.board.dto;
 
 import lombok.Data;
 

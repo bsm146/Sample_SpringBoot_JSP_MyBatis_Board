@@ -1,8 +1,8 @@
-package com.example.boardJsp.service;
+package com.example.boardJsp.board.service;
 
-import com.example.boardJsp.dto.Board;
-import com.example.boardJsp.dto.Member;
-import com.example.boardJsp.mapper.BoardMapper;
+import com.example.boardJsp.board.dto.Board;
+import com.example.boardJsp.member.dto.Member;
+import com.example.boardJsp.board.mapper.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

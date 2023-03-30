@@ -1,9 +1,9 @@
-package com.example.boardJsp.controller;
+package com.example.boardJsp.board.controller;
 
 import com.example.boardJsp.directory.Directory;
-import com.example.boardJsp.dto.Board;
-import com.example.boardJsp.dto.Member;
-import com.example.boardJsp.service.BoardService;
+import com.example.boardJsp.board.dto.Board;
+import com.example.boardJsp.member.dto.Member;
+import com.example.boardJsp.board.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +35,7 @@ public class BoardController {
         model.addAttribute("boardList", boardService.boardList(pageNum));
         model.addAttribute("boardCount", boardService.boardCount());
         model.addAttribute("view", BOARD + "board");
+        model.addAttribute("view", BOARD + "board");
 
         return "view";
     }
@@ -55,6 +56,7 @@ public class BoardController {
 
         HttpSession session = request.getSession();
         session.setAttribute("userID", member.getId());
+
         return "redirect:board";
     }
 
