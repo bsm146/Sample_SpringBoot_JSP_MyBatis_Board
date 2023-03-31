@@ -19,23 +19,26 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	// 코드 실시간 반영
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// JSTL
+	implementation 'javax.servlet:jstl:1.2'
+
+	// JSP
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
 	// MySQL
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
-	// JSTL
-	implementation 'javax.servlet:jstl'
-
-	// 코드 실시간 반영
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
-
-	// mybatis 쓸때
+	// MyBatis
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.3'
 
 }
