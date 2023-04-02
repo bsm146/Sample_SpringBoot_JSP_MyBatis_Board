@@ -43,7 +43,6 @@
                                 <input type="text" class="form-control" name="writingDate" value="${board.writingDate}" id="writingDate" disabled>
                             </div>
                             <div>
-<%--                                <button onclick="location.href='/boardUpdateProcess' "type="button" class="btn btn-secondary">수정</button>--%>
                                 <button type="submit" class="btn btn-secondary">수정</button>
                             </div>
                         </form>
